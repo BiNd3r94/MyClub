@@ -8,8 +8,6 @@ const Home = () => {
   const [showClubs, setShowClubs] = useState<boolean>(true)
   const [showClub, setShowClub] = useState<boolean>(false)
   const [clubId, setClubId] = useState<number>(null)
-  const [sectionId, setSectionId] = useState<number>(null)
-  const [showSections, setShowSections] = useState<boolean>(false)
 
   useEffect(() => {
     fetch("http://localhost:8080/clubs").then((res) => {
@@ -20,22 +18,14 @@ const Home = () => {
     })
   }, [])
 
-  const openSection = (sectionId: number) => {
-    setSectionId(sectionId);
-    setShowClubs(false);
-    setShowSections(true);
-  }
-
   const openClub = (clubId: number) => {
     setClubId(clubId);
     setShowClubs(false);
-    setShowSections(false);
     setShowClub(true);
   }
 
   const openClubs = () => {
     setShowClub(false);
-    setShowSections(false);
     setShowClubs(true);
   }
 
