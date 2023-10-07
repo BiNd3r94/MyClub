@@ -1,7 +1,10 @@
 import {useEffect, useState} from "react";
 import {Club} from "../../model/club";
 import {Section} from "../../model/section";
+import {Event} from "../../model/event";
 import Sections from "../section/Sections";
+import {TabPanel, TabView} from "primereact/tabview";
+import Events from "../events/Events";
 
 type ClubDetailProps = {
   clubId: number
@@ -10,6 +13,7 @@ type ClubDetailProps = {
 const ClubDetail = (props: ClubDetailProps) => {
   const [club, setClub] = useState<Club>(null)
   const [sections, setSections] = useState<Section[]>([])
+  const [events, setEvents] = useState<Event[]>([])
 
   useEffect(() => {
     fetch("http://localhost:8080/clubs/" + props.clubId).then((res) => {
@@ -22,6 +26,11 @@ const ClubDetail = (props: ClubDetailProps) => {
         setSections(sections);
       })
     })
+    fetch("http://localhost:8080/clubs/" + props.clubId + "/events").then((res) => {
+      res.json().then((events: Event[]) => {
+        setEvents(events);
+      })
+    })
   }, []);
 
   return (
@@ -29,8 +38,15 @@ const ClubDetail = (props: ClubDetailProps) => {
         <h2>{club?.name && club.name}</h2>
         <p>{club?.description && club.description}</p>
 
-        <h3>Abteilungen</h3>
-        <Sections sections={sections}/>
+        <TabView>
+          <TabPanel header={"Abteilungen"} >
+            <Sections sections={sections}/>
+          </TabPanel>
+          <TabPanel header={"Veranstaltungen"}>
+            <Events events={events} />
+          </TabPanel>
+        </TabView>
+
       </div>
   )
 }

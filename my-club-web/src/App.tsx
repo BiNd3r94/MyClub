@@ -1,6 +1,6 @@
 import React from 'react';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
-import "primereact/resources/themes/lara-dark-teal/theme.css";
+import "primereact/resources/themes/vela-green/theme.css";
 import "primereact/resources/primereact.min.css";
 import './App.css';
 import Home from "./views/Home";

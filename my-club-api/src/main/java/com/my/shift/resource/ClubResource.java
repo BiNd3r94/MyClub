@@ -2,6 +2,7 @@ package com.my.shift.resource;
 
 import com.my.shift.model.Club;
 import com.my.shift.model.ClubSection;
+import com.my.shift.model.Event;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -29,5 +30,12 @@ public class ClubResource {
     @Path("/{clubId}/sections")
     public List<ClubSection> getClubSections(long clubId) {
         return ClubSection.findByClubId(clubId);
+    }
+
+    @GET
+    @Produces
+    @Path("/{clubId}/events")
+    public List<Event> getClubEvents(long clubId) {
+        return Event.findByClubId(clubId);
     }
 }
