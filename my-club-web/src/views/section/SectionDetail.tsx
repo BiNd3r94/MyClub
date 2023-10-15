@@ -22,7 +22,7 @@ const SectionDetail = (props: SectionDetailProps) => {
         setTeams(teams);
       })
     })
-  }, []);
+  }, [props.sectionId]);
 
   return (
       <div className="c-club-details">
