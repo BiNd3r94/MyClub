@@ -1,16 +1,16 @@
 import {Team} from "../../model/team";
 
 type TeamsProps = {
-  teams: Team[]
+    teams: Team[]
 }
 const Teams = (props: TeamsProps) => {
 
 
-  return (
-      <div className={"c-sections"}>
+    return (
+        <div className={"c-sections"}>
 
-      </div>
-  )
+        </div>
+    )
 }
 
 export default Teams;

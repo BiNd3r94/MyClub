@@ -9,7 +9,7 @@ import Keycloak from "keycloak-js";
 
 //keycloak init options
 let initOptions = {
-  url: 'http://localhost:8180/', realm: 'quarkus', clientId: 'react-api', onLoad: 'login-required'
+    url: 'http://localhost:8180/', realm: 'quarkus', clientId: 'react-api', onLoad: 'login-required'
 }
 
 const root = ReactDOM.createRoot(
@@ -19,39 +19,39 @@ const root = ReactDOM.createRoot(
 let keycloak = new Keycloak(initOptions);
 
 // @ts-ignore
-keycloak.init({ onLoad: initOptions.onLoad }).then((auth) => {
+keycloak.init({onLoad: initOptions.onLoad}).then((auth) => {
 
-  if (!auth) {
-    window.location.reload();
-  } else {
-    console.info("Authenticated");
-  }
+    if (!auth) {
+        window.location.reload();
+    } else {
+        console.info("Authenticated");
+    }
 
-  root.render(
-      <React.StrictMode>
-        <App/>
-      </React.StrictMode>
-  );
-  localStorage.setItem("react-token", keycloak.token);
-  localStorage.setItem("react-refresh-token", keycloak.refreshToken);
+    root.render(
+        <React.StrictMode>
+            <App/>
+        </React.StrictMode>
+    );
+    localStorage.setItem("react-token", keycloak.token);
+    localStorage.setItem("react-refresh-token", keycloak.refreshToken);
 
-  setTimeout(() => {
-    keycloak.updateToken(70).then((refreshed:boolean) => {
-      if (refreshed) {
-        console.debug('Token refreshed' + refreshed);
-      } else {
-        console.warn('Token not refreshed, valid for '
-            + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
-      }
-    }).catch(() => {
-      console.error('Failed to refresh token');
-    });
+    setTimeout(() => {
+        keycloak.updateToken(70).then((refreshed: boolean) => {
+            if (refreshed) {
+                console.debug('Token refreshed' + refreshed);
+            } else {
+                console.warn('Token not refreshed, valid for '
+                    + Math.round(keycloak.tokenParsed.exp + keycloak.timeSkew - new Date().getTime() / 1000) + ' seconds');
+            }
+        }).catch(() => {
+            console.error('Failed to refresh token');
+        });
 
 
-  }, 60000)
+    }, 60000)
 
 }).catch(() => {
-  console.error("Authenticated Failed");
+    console.error("Authenticated Failed");
 });
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,7 +1,7 @@
 export interface Section {
-  id: number,
-  clubId: number,
+    id: number,
+    clubId: number,
 
-  name: string,
-  description: string
+    name: string,
+    description: string
 }

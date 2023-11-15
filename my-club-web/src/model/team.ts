@@ -1,7 +1,7 @@
 export interface Team {
-  id: number,
-  clubSectionId: number,
+    id: number,
+    clubSectionId: number,
 
-  name: string,
-  description: string
+    name: string,
+    description: string
 }
