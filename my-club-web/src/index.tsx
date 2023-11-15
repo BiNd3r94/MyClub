@@ -9,7 +9,7 @@ import Keycloak from "keycloak-js";
 
 //keycloak init options
 let initOptions = {
-  url: 'http://localhost:61422/', realm: 'quarkus', clientId: 'react-api', onLoad: 'login-required'
+  url: 'http://localhost:8180/', realm: 'quarkus', clientId: 'react-api', onLoad: 'login-required'
 }
 
 const root = ReactDOM.createRoot(
