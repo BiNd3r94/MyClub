@@ -1,0 +1,7 @@
+services:
+  nginx:
+    image: nginx:1.25.3
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/webserver/conf/:/etc/nginx/
