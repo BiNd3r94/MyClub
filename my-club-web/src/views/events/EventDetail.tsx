@@ -8,7 +8,8 @@ type EventDetailProps = {
     openOverview: () => void
 }
 const EventDetail = (props: EventDetailProps) => {
-    const [event, setEvent] = useState<Event>(null)
+    const [event] = useState<Event>(null)
+  // TODO event fetching (add set Event)
 
     return (
         <Card className={"c-event m-3"} title={event.name}>

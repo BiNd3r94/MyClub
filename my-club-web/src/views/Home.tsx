@@ -10,7 +10,7 @@ const Home = () => {
     const [clubId, setClubId] = useState<number>(null)
 
     useEffect(() => {
-        fetch("http://localhost:8080/clubs").then((res) => {
+        fetch("/api/clubs").then((res) => {
             res.json().then((data) => {
                 setMyClubs(data)
             })
