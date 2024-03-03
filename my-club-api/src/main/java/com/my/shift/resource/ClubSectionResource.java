@@ -26,6 +26,6 @@ public class ClubSectionResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{sectionId}/teams")
     public List<Team> getSectionTeams(long sectionId) {
-        return Team.findBySectionId(sectionId);
+        return Team.findTeamsBySectionId(sectionId);
     }
 }

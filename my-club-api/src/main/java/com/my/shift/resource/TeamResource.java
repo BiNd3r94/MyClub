@@ -8,11 +8,18 @@ import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
 @Path("/teams")
+@Produces(MediaType.APPLICATION_JSON)
 public class TeamResource {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
     public List<Team> listClubs() {
         return Team.listAll();
     }
+
+    @GET
+    @Path("/{teamId}")
+    public Team getTeam(long teamId){
+        return Team.findById(teamId);
+    }
+
 }

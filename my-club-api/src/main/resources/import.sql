@@ -29,7 +29,7 @@ values (3, 'Beach days', 'Beach Handball Turnier', null, 3);
 insert into Shift (id, name, description, startTime, endtime)
 values (1, 'Schicht 1', 'Das ist die erste Schicht', null, null);
 
-insert into UserEntity (id, username, password, role)
-values (1, 'user', 'user', 'user');
-insert into UserEntity (id, username, password, role)
-values (2, 'admin', 'admin', 'admin');
+insert into UserEntity (id, username, password, firstname, lastname, role)
+values (1, 'jan', 'user', 'Jan', 'Binder', 'user');
+insert into UserEntity (id, username, password, firstname, lastname, role)
+values (2, 'admin', 'admin', 'admin', 'admin', 'admin');

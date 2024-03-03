@@ -9,7 +9,6 @@ type SectionDetailProps = {
 }
 const SectionDetail = (props: SectionDetailProps) => {
     const [section, setSection] = useState<Section>(null)
-    const [teams, setTeams] = useState<Team[]>([])
 
     useEffect(() => {
         fetch("/api/sections/" + props.sectionId).then((res) => {
@@ -17,11 +16,7 @@ const SectionDetail = (props: SectionDetailProps) => {
                 setSection(section);
             })
         })
-        fetch("/api/sections/" + props.sectionId + "/teams").then((res) => {
-            res.json().then((teams: Team[]) => {
-                setTeams(teams);
-            })
-        })
+
     }, [props.sectionId]);
 
     return (
@@ -30,7 +25,7 @@ const SectionDetail = (props: SectionDetailProps) => {
             <p>{section?.description && section.description}</p>
 
             <h3>Teams</h3>
-            <Teams teams={teams}/>
+            <Teams sectionId={section?.id && section.id}/>
         </div>
     )
 }

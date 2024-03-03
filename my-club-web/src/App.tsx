@@ -4,6 +4,7 @@ import "primereact/resources/themes/vela-green/theme.css";
 import "primereact/resources/primereact.min.css";
 import './App.css';
 import Home from "./views/Home";
+import Teams from "./views/team/Teams";
 
 const headers = {headers: {"Authorization": "Basic YWRtaW46YWRtaW4="}};
 
@@ -15,11 +16,23 @@ function App() {
             path: "/",
             element: <Home/>,
         },
+        {
+            path: "/teams",
+            element: <Teams sectionId={1}/>,
+        },
+        {
+            path: "/",
+            element: <Home/>,
+        },
+        {
+            path: "/",
+            element: <Home/>,
+        },
     ]);
 
     useEffect(() => {
         fetch("/api/users/me", headers).then((res) => {
-            res.json().then((user)=>{
+            res.json().then((user) => {
                 setUserData(user)
             });
         })
@@ -29,7 +42,7 @@ function App() {
         <div className="my-club">
             <div className="container p-3">
                 <h1 className={"text-center"}>My Club</h1>
-                <p>Willkommen {userData ? userData.name: ""}</p>
+                <p>Willkommen {userData ? userData.firstName : ""}</p>
             </div>
             <RouterProvider router={router}/>
         </div>
