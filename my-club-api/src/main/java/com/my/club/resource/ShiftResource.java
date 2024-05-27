@@ -1,18 +1,18 @@
-package com.my.shift.resource;
+package com.my.club.resource;
 
-import com.my.shift.model.Event;
+import com.my.club.model.Shift;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import java.util.List;
 
-@Path("/events")
-public class EventResource {
+@Path("/shifts")
+public class ShiftResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Event> listEvents() {
-        return Event.listAll();
+    public List<Shift> listEvents() {
+        return Shift.listAll();
     }
 }

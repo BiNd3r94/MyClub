@@ -1,4 +1,4 @@
-package com.my.shift.model;
+package com.my.club.model;
 
 import io.quarkus.elytron.security.common.BcryptUtil;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
@@ -18,18 +18,18 @@ public class UserEntity extends PanacheEntity {
     @Password
     private String password;
 
-    public String firstName;
-    public String lastName;
-
     @Roles
     public String role;
 
     /**
      * Adds a new user to the database
      *
-     * @param username the username
-     * @param password the unencrypted password (it will be encrypted with bcrypt)
-     * @param role     the comma-separated roles
+     * @param username
+     *         the username
+     * @param password
+     *         the unencrypted password (it will be encrypted with bcrypt)
+     * @param role
+     *         the comma-separated roles
      */
     public static void add(String username, String password, String role) {
         UserEntity user = new UserEntity();

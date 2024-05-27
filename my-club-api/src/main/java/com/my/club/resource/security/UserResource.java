@@ -1,6 +1,6 @@
-package com.my.shift.resource.security;
+package com.my.club.resource.security;
 
-import com.my.shift.model.UserEntity;
+import com.my.club.model.UserEntity;
 import jakarta.annotation.security.RolesAllowed;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
@@ -12,7 +12,7 @@ import org.jboss.resteasy.reactive.NoCache;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/users")
-public class UsersResource {
+public class UserResource {
 
     @GET
     @Path("/me")

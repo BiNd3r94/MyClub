@@ -1,6 +1,6 @@
-package com.my.shift.resource;
+package com.my.club.resource;
 
-import com.my.shift.model.Team;
+import com.my.club.model.Team;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -18,7 +18,7 @@ public class TeamResource {
 
     @GET
     @Path("/{teamId}")
-    public Team getTeam(long teamId){
+    public Team getTeam(long teamId) {
         return Team.findById(teamId);
     }
 

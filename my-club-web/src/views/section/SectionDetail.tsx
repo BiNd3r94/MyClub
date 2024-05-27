@@ -1,33 +1,49 @@
 import {useEffect, useState} from "react";
 import {Section} from "../../model/section";
-import {Team} from "../../model/team";
-import Teams from "../team/Teams";
+import TeamsOfSection from "../team/TeamsOfSection";
+import {useParams} from "react-router-dom";
 
 type SectionDetailProps = {
-    sectionId: number
-    openOverview: () => void
+  sectionId?: number
+  openOverview?: () => void
 }
 const SectionDetail = (props: SectionDetailProps) => {
-    const [section, setSection] = useState<Section>(null)
+  const [section, setSection] = useState<Section>(null)
+  const params = useParams()
 
-    useEffect(() => {
-        fetch("/api/sections/" + props.sectionId).then((res) => {
-            res.json().then((section: Section) => {
-                setSection(section);
-            })
-        })
+  useEffect(() => {
+    let sectionFetchingURL = getSectionFetchingURL();
 
-    }, [props.sectionId]);
+    fetch(sectionFetchingURL).then((res) => {
+      res.json().then((section: Section) => {
+        setSection(section);
+      })
+    })
+  }, [params.sectionId]);
 
-    return (
-        <div className="c-club-details">
-            <h2>{section?.name && section.name}</h2>
-            <p>{section?.description && section.description}</p>
+  const getSectionFetchingURL = () => {
+    let sectionFetchingURL = `/api/sections`
 
-            <h3>Teams</h3>
-            <Teams sectionId={section?.id && section.id}/>
-        </div>
-    )
+    if (params.sectionId) {
+      sectionFetchingURL += "/" + params.sectionId;
+    } else if (props.sectionId) {
+      sectionFetchingURL += "/" + props.sectionId;
+    }
+
+    return sectionFetchingURL;
+  }
+
+  return (
+      <div className="c-club-details">
+        <h2>{section?.name && section.name}</h2>
+        <p>{section?.description && section.description}</p>
+
+        <h3>Teams</h3>
+        {section &&
+            <TeamsOfSection section={section}/>
+        }
+      </div>
+  )
 }
 
 export default SectionDetail;

@@ -1,8 +1,7 @@
-package com.my.shift.model;
+package com.my.club.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
 
 @Entity

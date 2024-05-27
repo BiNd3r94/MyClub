@@ -1,8 +1,8 @@
-package com.my.shift.resource;
+package com.my.club.resource;
 
-import com.my.shift.model.Club;
-import com.my.shift.model.ClubSection;
-import com.my.shift.model.Event;
+import com.my.club.model.Club;
+import com.my.club.model.ClubSection;
+import com.my.club.model.Event;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;

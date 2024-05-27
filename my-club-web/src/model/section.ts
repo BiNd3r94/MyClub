@@ -1,7 +1,11 @@
-export interface Section {
-    id: number,
-    clubId: number,
+import {Team} from "./team";
 
-    name: string,
-    description: string
+export interface Section {
+  id: number,
+  clubId: number,
+
+  name: string,
+  description: string,
+
+  teams: Team[],
 }

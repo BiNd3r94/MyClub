@@ -1,7 +1,7 @@
-package com.my.shift.resource;
+package com.my.club.resource;
 
-import com.my.shift.model.ClubSection;
-import com.my.shift.model.Team;
+import com.my.club.model.ClubSection;
+import com.my.club.model.Team;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -13,14 +13,16 @@ public class ClubSectionResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<ClubSection> listClubs(long clubId) {
+    public List<ClubSection> listClubSections() {
         return ClubSection.listAll();
     }
 
     @GET
     @Produces
     @Path("/{sectionId}")
-    public ClubSection getSection(long sectionId) {return ClubSection.findById(sectionId);}
+    public ClubSection getSection(long sectionId) {
+        return ClubSection.findById(sectionId);
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
