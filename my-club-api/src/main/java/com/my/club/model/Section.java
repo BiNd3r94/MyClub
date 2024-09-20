@@ -10,7 +10,7 @@ import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class ClubSection extends PanacheEntity {
+public class Section extends PanacheEntity {
 
     public String name;
 
@@ -25,8 +25,8 @@ public class ClubSection extends PanacheEntity {
     @ManyToMany
     List<Member> members;
 
-    public static List<ClubSection> findByClubId(long clubId) {
-        PanacheQuery<ClubSection> clubSections = find("club.id=?1", clubId);
+    public static List<Section> findByClubId(long clubId) {
+        PanacheQuery<Section> clubSections = find("club.id=?1", clubId);
         return clubSections.list();
     }
 

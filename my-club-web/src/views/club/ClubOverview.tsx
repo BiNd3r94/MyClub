@@ -1,22 +1,21 @@
 import {Card} from "primereact/card";
-import {Button} from "primereact/button";
 import {Club} from "../../model/club";
+import {Link} from "react-router-dom";
 
 type ClubOverviewProps = {
-    club: Club
-    showClub: (id: number) => void
+  club: Club
 }
 export const ClubOverview = (props: ClubOverviewProps) => {
-    const getClubName = (): string => {
-        if (props.club) {
-            return props.club.name
-        }
-        return ""
+  const getClubName = (): string => {
+    if (props.club) {
+      return props.club.name
     }
-    return (
-        <Card title={getClubName()} className="m-3">
-            <p>{props.club.description}</p>
-            <Button onClick={() => props.showClub(props.club.id)}>Öffnen</Button>
-        </Card>
-    )
+    return ""
+  }
+  return (
+      <Card title={getClubName()} className="">
+        <p>{props.club.description}</p>
+        <Link className={"p-component p-button"} to={"/clubs/" + props.club.id}>Öffnen</Link>
+      </Card>
+  )
 }

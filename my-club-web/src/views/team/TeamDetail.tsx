@@ -1,8 +1,8 @@
 import {Team} from "../../model/team";
 import {useEffect, useState} from "react";
-import {Button} from "primereact/button";
 import TeamInformation from "./TeamInformation";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
+import {Card} from "primereact/card";
 
 type TeamDetailProps = {
   teamId?: number
@@ -11,7 +11,7 @@ type TeamDetailProps = {
 
 function TeamDetail(props: TeamDetailProps) {
   const [team, setTeam] = useState<Team>(null)
-  const params = useParams()
+  const params = useParams();
 
   useEffect(() => {
     let teamFetchingURL = getTeamFetchingURL();
@@ -24,7 +24,7 @@ function TeamDetail(props: TeamDetailProps) {
   }, [params.teamId]);
 
   const getTeamFetchingURL = () => {
-    let teamFetchingURL = `/api/teams`
+    let teamFetchingURL = `/api/team`
 
     if (params.teamId) {
       teamFetchingURL += "/" + params.teamId;
@@ -36,12 +36,16 @@ function TeamDetail(props: TeamDetailProps) {
   }
 
   return (
-      <div className="c-team">
-        <h2>{team && team.name}</h2>
-        <p>{team && team.description}</p>
-        <TeamInformation team={team}/>
-        <Button className={"mt-3"}
-                onClick={props.showOverview ? props.showOverview : window.history.back}>Zurück</Button>
+      <div className="c-team m-3">
+        <Card>
+          <h2>{team && team.name}</h2>
+          <p>{team && team.description}</p>
+          <TeamInformation team={team}/>
+          <Link
+              className={"p-component p-button mt-3"}
+              to={"/teams"}
+          >Zurück</Link>
+        </Card>
       </div>
   );
 }

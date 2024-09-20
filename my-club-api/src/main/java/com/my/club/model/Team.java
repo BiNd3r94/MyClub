@@ -5,7 +5,6 @@ import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import java.util.List;
 
 @Entity
@@ -16,13 +15,10 @@ public class Team extends PanacheEntity {
     public String description;
 
     @ManyToOne
-    public ClubSection clubSection;
+    public Section clubSection;
 
     @ManyToMany
     public List<Member> members;
-
-    @OneToMany
-    public List<Game> games;
 
     public static List<Team> findTeamsBySectionId(long clubSectionId) {
         PanacheQuery<Team> teams = find("clubSection.id=?1", clubSectionId);

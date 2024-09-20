@@ -13,4 +13,8 @@ public class Game extends PanacheEntity {
     @ManyToOne
     public Team awayTeam;
 
+    public int homeScore;
+
+    public int awayScore;
+
 }

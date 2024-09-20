@@ -3,6 +3,7 @@ import {Accordion, AccordionTab} from "primereact/accordion";
 import {useEffect, useState} from "react";
 import Games from "../game/Games";
 import Members from "../member/Members";
+import {Game} from "../../model/game";
 
 type TeamInformationProps = { team: Team };
 
@@ -10,13 +11,17 @@ function TeamInformation(props: Readonly<TeamInformationProps>) {
   const [team, setTeam] = useState(props.team);
   useEffect(() => {
     if (props.team?.id) {
-      fetch("/api/teams/" + props.team.id).then((res) => {
+      fetch("/api/team/" + props.team.id).then((res) => {
         res.json().then((team: Team) => {
           setTeam(team);
         })
       })
     }
   }, [props.team]);
+
+  const getTeamGames = (): Game[] => {
+    return []
+  }
 
   return (
       <Accordion multiple>
@@ -26,9 +31,7 @@ function TeamInformation(props: Readonly<TeamInformationProps>) {
           }
         </AccordionTab>
         <AccordionTab header={"Spiele"}>
-          {team?.games &&
-              <Games games={team.games}/>
-          }
+          <Games games={getTeamGames()}/>
         </AccordionTab>
       </Accordion>
   );

@@ -22,19 +22,19 @@ const SectionDetail = (props: SectionDetailProps) => {
   }, [params.sectionId]);
 
   const getSectionFetchingURL = () => {
-    let sectionFetchingURL = `/api/sections`
+    let sectionFetchingURL = `/api/section/`
 
     if (params.sectionId) {
-      sectionFetchingURL += "/" + params.sectionId;
+      sectionFetchingURL += params.sectionId;
     } else if (props.sectionId) {
-      sectionFetchingURL += "/" + props.sectionId;
+      sectionFetchingURL += props.sectionId;
     }
 
     return sectionFetchingURL;
   }
 
   return (
-      <div className="c-club-details">
+      <div className="c-club-details m-3">
         <h2>{section?.name && section.name}</h2>
         <p>{section?.description && section.description}</p>
 

@@ -4,13 +4,23 @@ import '/node_modules/primeflex/primeflex.css'
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {AuthProvider} from "react-oidc-context";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root')
 );
+
+const oidcConfig = {
+  authority: "http://localhost:8180/realms/quarkus",
+  client_id: "backend-service",
+  redirect_uri: "http://my-club.com:8180/",
+}
+
 root.render(
     <React.StrictMode>
+      <AuthProvider {...oidcConfig} >
         <App/>
+      </AuthProvider>
     </React.StrictMode>
 );
 

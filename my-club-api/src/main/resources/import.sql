@@ -9,9 +9,9 @@ values (3, 'TV Tamm', 'Verein in Tamm');
 insert into Club (id, name, description)
 values (4, 'TV Möglingen', 'Verein in Möglingen');
 
-insert into ClubSection (id, name, description, club_id)
+insert into Section (id, name, description, club_id)
 values (1, 'Handball', 'Die Handballabteilung des TSV Asperg', 1);
-insert into ClubSection (id, name, description, club_id)
+insert into Section (id, name, description, club_id)
 values (2, 'Fußball', 'Die Fußballabteilung des TSV Asperg', 1);
 
 insert into Team (id, name, description)
@@ -37,7 +37,7 @@ values (1, 'Schicht 1', 'Das ist die erste Schicht', null, null);
 insert into UserEntity (id, username, password, role)
 values (1, 'jan', 'user', 'user');
 insert into UserEntity (id, username, password, role)
-values (2, 'admin', 'admin', 'admin');
+values (2, 'tester', 'tester', 'tester');
 
 insert into Member (id, firstname, lastname)
 values (1, 'Jan', 'Binder');
@@ -48,3 +48,4 @@ insert into team_member(team_id, members_id)
 values (1, 1);
 insert into team_member(team_id, members_id)
 values (1, 2);
+

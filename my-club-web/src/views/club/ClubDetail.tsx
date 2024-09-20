@@ -5,50 +5,52 @@ import {Event} from "../../model/event";
 import Sections from "../section/Sections";
 import {TabPanel, TabView} from "primereact/tabview";
 import Events from "../events/Events";
+import {useParams} from "react-router-dom";
 
 type ClubDetailProps = {
-    clubId: number
-    openOverview: () => void
+  clubId?: number
 }
 const ClubDetail = (props: ClubDetailProps) => {
-    const [club, setClub] = useState<Club>(null)
-    const [sections, setSections] = useState<Section[]>([])
-    const [events, setEvents] = useState<Event[]>([])
+  const [club, setClub] = useState<Club>(null)
+  const [sections, setSections] = useState<Section[]>([])
+  const [events, setEvents] = useState<Event[]>([])
+  const params = useParams()
 
-    useEffect(() => {
-        fetch("/api/clubs/" + props.clubId).then((res) => {
-            res.json().then((club: Club) => {
-                setClub(club);
-            })
-        })
-        fetch("/api/clubs/" + props.clubId + "/sections").then((res) => {
-            res.json().then((sections: Section[]) => {
-                setSections(sections);
-            })
-        })
-        fetch("/api/clubs/" + props.clubId + "/events").then((res) => {
-            res.json().then((events: Event[]) => {
-                setEvents(events);
-            })
-        })
-    }, [props.clubId]);
+  useEffect(() => {
+    let clubId = params.clubId ? params.clubId : props.clubId;
+    fetch("/api/club/" + clubId).then((res) => {
+      res.json().then((club: Club) => {
+        setClub(club);
+      })
+    })
+    fetch("/api/club/" + clubId + "/sections").then((res) => {
+      res.json().then((sections: Section[]) => {
+        setSections(sections);
+      })
+    })
+    fetch("/api/club/" + clubId + "/event").then((res) => {
+      res.json().then((events: Event[]) => {
+        setEvents(events);
+      })
+    })
+  }, []);
 
-    return (
-        <div className="c-club-details">
-            <h2>{club?.name && club.name}</h2>
-            <p>{club?.description && club.description}</p>
+  return (
+      <div className="c-club-details m-3">
+        <h2>{club?.name && club.name}</h2>
+        <p>{club?.description && club.description}</p>
 
-            <TabView>
-                <TabPanel header={"Abteilungen"}>
-                    <Sections sections={sections}/>
-                </TabPanel>
-                <TabPanel header={"Veranstaltungen"}>
-                    <Events events={events}/>
-                </TabPanel>
-            </TabView>
+        <TabView>
+          <TabPanel header={"Abteilungen"}>
+            <Sections sections={sections}/>
+          </TabPanel>
+          <TabPanel header={"Veranstaltungen"}>
+            <Events events={events}/>
+          </TabPanel>
+        </TabView>
 
-        </div>
-    )
+      </div>
+  )
 }
 
 export default ClubDetail;

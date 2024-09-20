@@ -1,4 +1,3 @@
-import {Game} from "./game";
 import {Member} from "./member";
 import {Section} from "./section";
 
@@ -10,5 +9,4 @@ export interface Team {
   description: string,
 
   members: Member[],
-  games: Game[]
 }

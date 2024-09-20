@@ -1,25 +1,8 @@
 package com.my.club.resource;
 
 import com.my.club.model.Team;
-import jakarta.ws.rs.GET;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.core.MediaType;
-import java.util.List;
+import io.quarkus.hibernate.orm.rest.data.panache.PanacheEntityResource;
 
-@Path("/teams")
-@Produces(MediaType.APPLICATION_JSON)
-public class TeamResource {
-
-    @GET
-    public List<Team> listClubs() {
-        return Team.listAll();
-    }
-
-    @GET
-    @Path("/{teamId}")
-    public Team getTeam(long teamId) {
-        return Team.findById(teamId);
-    }
+public interface TeamResource extends PanacheEntityResource<Team, Long> {
 
 }
