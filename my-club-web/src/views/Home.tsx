@@ -2,17 +2,16 @@ import {useEffect, useState} from "react";
 import {Club} from "../model/club";
 import Clubs from "./club/Clubs";
 import ClubDetail from "./club/ClubDetail";
-import {useAuth} from "react-oidc-context";
+import keycloak from "../util/keycloak";
 
 const Home = () => {
-  const auth = useAuth();
   const [myClubs, setMyClubs] = useState<Club[]>();
   const [showClubs, setShowClubs] = useState<boolean>(true)
   const [showClub, setShowClub] = useState<boolean>(false)
   const [clubId, setClubId] = useState<number>(null)
 
   useEffect(() => {
-    let token = auth.user?.access_token
+    let token = keycloak.token;
     fetch("/api/club", {
       headers: {
         "Authorization": "Bearer " + token

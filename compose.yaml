@@ -1,12 +1,31 @@
 services:
   nginx:
+    container_name: my-club-proxy
     image: nginx:1.25.3
     ports:
       - 80:80
     volumes:
       - ./docker/webserver/conf/:/etc/nginx/
-#    depends_on:
-#      - frontend
+    depends_on:
+      - keycloak
+    networks:
+      myclub:
+
+  keycloak:
+    container_name: my-club-idm
+    image:
+      quay.io/keycloak/keycloak:25.0.6
+    ports:
+      - 8180:8080
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: >
+      start-dev --proxy-headers forwarded --hostname http://my-club.com/auth/ --http-enabled true
+    networks:
+      myclub:
+        aliases:
+          - idm
 #  frontend:
 #    image: node:16.17-slim
 #    user: "node"
@@ -18,3 +37,5 @@ services:
 #    expose:
 #      - "3000"
 #    command: "npm start"
+networks:
+  myclub:
