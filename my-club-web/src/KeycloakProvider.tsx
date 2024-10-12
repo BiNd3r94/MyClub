@@ -6,8 +6,8 @@ const KeycloakContext = createContext(null);
 
 const keycloakInstance = new Keycloak({
   url: 'http://my-club:8081/auth',
-  realm: 'quarkus',
-  clientId: 'my-club-com',
+  realm: 'my-club',
+  clientId: 'my-club-web',
 });
 
 const KeycloakProvider = ({children}: PropsWithChildren) => {
