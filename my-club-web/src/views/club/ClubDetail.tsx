@@ -1,11 +1,13 @@
-import {useEffect, useState} from "react";
-import {Club} from "../../model/club";
+import {useContext, useEffect, useState} from "react";
+import {Club, clubsPath} from "../../model/club";
 import {Section} from "../../model/section";
 import {Event} from "../../model/event";
 import Sections from "../section/Sections";
 import {TabPanel, TabView} from "primereact/tabview";
 import Events from "../events/Events";
 import {useParams} from "react-router-dom";
+import {HTTPClient} from "../../api/HttpClient";
+import {KeycloakContext} from "../../auth/KeycloakProvider";
 
 type ClubDetailProps = {
   clubId?: number
@@ -15,25 +17,28 @@ const ClubDetail = (props: ClubDetailProps) => {
   const [sections, setSections] = useState<Section[]>([])
   const [events, setEvents] = useState<Event[]>([])
   const params = useParams()
+  const keycloak = useContext(KeycloakContext)
 
   useEffect(() => {
-    let clubId = params.clubId ? params.clubId : props.clubId;
-    fetch("/api/club/" + clubId).then((res) => {
-      res.json().then((club: Club) => {
-        setClub(club);
-      })
-    })
-    fetch("/api/club/" + clubId + "/sections").then((res) => {
-      res.json().then((sections: Section[]) => {
-        setSections(sections);
-      })
-    })
-    fetch("/api/club/" + clubId + "/event").then((res) => {
-      res.json().then((events: Event[]) => {
-        setEvents(events);
-      })
-    })
+    initClub()
   }, []);
+
+  const initClub = () => {
+    let clubId = params.clubId ? params.clubId : props.clubId;
+    let httpClient = new HTTPClient(keycloak)
+
+    httpClient.get(clubsPath + clubId).then((club) => {
+      setClub(club);
+    })
+
+    httpClient.get(clubsPath + clubId + "/section").then((sections: Section[]) => {
+      setSections(sections);
+    })
+
+    httpClient.get(clubsPath + clubId + "/event").then((res) => {
+      setEvents(events);
+    })
+  }
 
   return (
       <div className="c-club-details m-3">

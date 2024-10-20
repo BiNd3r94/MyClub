@@ -12,6 +12,7 @@ import org.jboss.resteasy.reactive.NoCache;
 
 @Produces(MediaType.APPLICATION_JSON)
 @Path("/users")
+@RolesAllowed("user")
 public class UserResource {
 
     @GET

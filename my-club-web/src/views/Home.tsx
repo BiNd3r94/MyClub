@@ -1,32 +1,43 @@
-import {useEffect, useState} from "react";
-import {Club} from "../model/club";
+import {useContext, useEffect, useState} from "react";
 import Clubs from "./club/Clubs";
 import ClubDetail from "./club/ClubDetail";
-import keycloak from "../util/keycloak";
+import {useSetRecoilState} from "recoil";
+import {clubsState} from "../state/clubsState";
+import {clubsPath} from "../model/club";
+import {HTTPClient} from "../api/HttpClient";
+import {KeycloakContext} from "../auth/KeycloakProvider";
 
 const Home = () => {
-  const [myClubs, setMyClubs] = useState<Club[]>();
-  const [showClubs, setShowClubs] = useState<boolean>(true)
-  const [showClub, setShowClub] = useState<boolean>(false)
-  const [clubId, setClubId] = useState<number>(null)
+  const setClubs = useSetRecoilState(clubsState);
+  const [showClubs] = useState<boolean>(true)
+  const [showClub] = useState<boolean>(false)
+  const [clubId] = useState<number>(null)
+  const keycloak = useContext(KeycloakContext);
 
   useEffect(() => {
-    let token = keycloak.token;
-    fetch("/api/club", {
-      headers: {
-        "Authorization": "Bearer " + token
-      }
-    }).then((res) => {
-      res.json().then((data) => {
-        setMyClubs(data)
-      })
+    initHome()
+  })
 
-    })
-  }, [])
+  const initHome = () => {
+    fetchClubs()
+  }
+
+  const fetchClubs = () => {
+    if (keycloak.token) {
+      let httpClient = new HTTPClient(keycloak);
+      try {
+        httpClient.get(clubsPath).then((clubsFetchResult) => {
+          setClubs(clubsFetchResult);
+        })
+      } catch (error) {
+        setClubs([]);
+      }
+    }
+  }
 
   return (
       <div className={"container p-3"}>
-        {showClubs && <Clubs myClubs={myClubs}/>}
+        {showClubs && <Clubs/>}
         {showClub && <ClubDetail clubId={clubId}/>}
       </div>
   )

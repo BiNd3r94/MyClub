@@ -16,14 +16,14 @@ public interface ClubResource extends PanacheEntityResource<Club, Long> {
 
     @GET
     @Produces
-    @Path("/{clubId}/sections")
+    @Path("/{clubId}/section")
     default List<Section> getClubSections(@PathParam("clubId") long clubId) {
         return Section.findByClubId(clubId);
     }
 
     @GET
     @Produces
-    @Path("/{clubId}/events")
+    @Path("/{clubId}/event")
     default List<Event> getClubEvents(@PathParam("clubId") long clubId) {
         return Event.findByClubId(clubId);
     }

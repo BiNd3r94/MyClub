@@ -10,3 +10,5 @@ export interface Team {
 
   members: Member[],
 }
+
+export const teamsPath: string = "/api/team/"

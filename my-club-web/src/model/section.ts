@@ -9,3 +9,5 @@ export interface Section {
 
   teams: Team[],
 }
+
+export const sectionsPath: string = "/api/section/";

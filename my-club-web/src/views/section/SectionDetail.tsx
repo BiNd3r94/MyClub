@@ -1,7 +1,9 @@
-import {useEffect, useState} from "react";
-import {Section} from "../../model/section";
+import {useContext, useEffect, useState} from "react";
+import {Section, sectionsPath} from "../../model/section";
 import TeamsOfSection from "../team/TeamsOfSection";
 import {useParams} from "react-router-dom";
+import {HTTPClient} from "../../api/HttpClient";
+import {KeycloakContext} from "../../auth/KeycloakProvider";
 
 type SectionDetailProps = {
   sectionId?: number
@@ -10,28 +12,15 @@ type SectionDetailProps = {
 const SectionDetail = (props: SectionDetailProps) => {
   const [section, setSection] = useState<Section>(null)
   const params = useParams()
+  const keycloak = useContext(KeycloakContext)
 
   useEffect(() => {
-    let sectionFetchingURL = getSectionFetchingURL();
 
-    fetch(sectionFetchingURL).then((res) => {
-      res.json().then((section: Section) => {
-        setSection(section);
-      })
+    let httpClient = new HTTPClient(keycloak);
+    httpClient.get(sectionsPath + params.sectionId).then((section: Section) => {
+      setSection(section);
     })
   }, [params.sectionId]);
-
-  const getSectionFetchingURL = () => {
-    let sectionFetchingURL = `/api/section/`
-
-    if (params.sectionId) {
-      sectionFetchingURL += params.sectionId;
-    } else if (props.sectionId) {
-      sectionFetchingURL += props.sectionId;
-    }
-
-    return sectionFetchingURL;
-  }
 
   return (
       <div className="c-club-details m-3">

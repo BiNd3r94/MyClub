@@ -5,7 +5,7 @@ import Keycloak from "keycloak-js";
 const KeycloakContext = createContext(null);
 
 const keycloakInstance = new Keycloak({
-  url: 'http://my-club:8081/auth',
+  url: 'http://my-club.com/auth/',
   realm: 'my-club',
   clientId: 'my-club-web',
 });
