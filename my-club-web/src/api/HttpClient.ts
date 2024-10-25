@@ -11,8 +11,8 @@ export class HTTPClient {
     return await this.baseCall(url, "GET")
   }
 
-  async create(url: string): Promise<any> {
-    return this.baseCall(url, "POST")
+  async create(url: string, body: string): Promise<any> {
+    return this.baseCall(url, "POST", body)
   }
 
   async update(url: string): Promise<any> {
@@ -23,12 +23,13 @@ export class HTTPClient {
     return this.baseCall(url, "DELETE")
   }
 
-  async baseCall(url: string, method: string): Promise<any> {
+  async baseCall(url: string, method: string, body?: string): Promise<any> {
     try {
       return await this.keycloak.updateToken().then(async () => {
         return fetch(url, {
           headers: this.getHeaders(this.keycloak.token),
-          method: method
+          method: method,
+          body: body
         }).then(async (res: Response) => {
           if (res.ok) {
             return await res.json()
@@ -47,7 +48,8 @@ export class HTTPClient {
 
   getHeaders(token: string) {
     return {
-      "Authorization": "Bearer " + token
+      "Authorization": "Bearer " + token,
+      "Content-Type": "application/json"
     }
   }
 }

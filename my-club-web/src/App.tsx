@@ -3,6 +3,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import "primereact/resources/themes/vela-green/theme.css";
 import "primereact/resources/primereact.min.css";
 import './App.css';
+import './i18n';
 import {routes} from "./routes/routes";
 import {KeycloakProvider} from "./auth/KeycloakProvider";
 import {RecoilRoot} from "recoil";
@@ -19,7 +20,9 @@ function App() {
             <div className="container p-3">
               <h1 className={"text-center"}>My Club</h1>
             </div>
-            <RouterProvider router={router}/>
+            <div className="main flex justify-content-center flex-column">
+              <RouterProvider router={router}/>
+            </div>
           </div>
         </RecoilRoot>
       </KeycloakProvider>

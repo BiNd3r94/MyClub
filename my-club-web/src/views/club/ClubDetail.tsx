@@ -52,6 +52,9 @@ const ClubDetail = (props: ClubDetailProps) => {
           <TabPanel header={"Veranstaltungen"}>
             <Events events={events}/>
           </TabPanel>
+          <TabPanel header={"Mitglieder"}>
+            <span>TODO</span>
+          </TabPanel>
         </TabView>
 
       </div>

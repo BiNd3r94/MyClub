@@ -5,6 +5,7 @@ import React from "react";
 import EventDetail from "../views/events/EventDetail";
 import Teams from "../views/team/Teams";
 import ClubDetail from "../views/club/ClubDetail";
+import {ClubForm} from "../views/club/ClubForm";
 
 export const routes: Route[] = [
   {
@@ -14,6 +15,10 @@ export const routes: Route[] = [
   {
     path: "/clubs/:clubId",
     element: <ClubDetail/>
+  },
+  {
+    path: "/clubs/create/",
+    element: <ClubForm/>
   },
   {
     path: "/teams",
