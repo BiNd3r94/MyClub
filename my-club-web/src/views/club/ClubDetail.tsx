@@ -8,13 +8,15 @@ import Events from "../events/Events";
 import {useParams} from "react-router-dom";
 import {HTTPClient} from "../../api/HttpClient";
 import {KeycloakContext} from "../../auth/KeycloakProvider";
+import {useSetRecoilState} from "recoil";
+import {sectionsState} from "../../state/sectionState";
 
 type ClubDetailProps = {
   clubId?: number
 }
 const ClubDetail = (props: ClubDetailProps) => {
   const [club, setClub] = useState<Club>(null)
-  const [sections, setSections] = useState<Section[]>([])
+  const setSections = useSetRecoilState(sectionsState)
   const [events, setEvents] = useState<Event[]>([])
   const params = useParams()
   const keycloak = useContext(KeycloakContext)
@@ -47,7 +49,7 @@ const ClubDetail = (props: ClubDetailProps) => {
 
         <TabView>
           <TabPanel header={"Abteilungen"}>
-            <Sections sections={sections}/>
+            <Sections/>
           </TabPanel>
           <TabPanel header={"Veranstaltungen"}>
             <Events events={events}/>

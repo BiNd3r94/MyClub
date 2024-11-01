@@ -18,7 +18,9 @@ function App() {
         <RecoilRoot>
           <div className="my-club">
             <div className="container p-3">
-              <h1 className={"text-center"}>My Club</h1>
+              <a href='/'>
+                <h1 className={"text-center"}>My Club</h1>
+              </a>
             </div>
             <div className="main flex justify-content-center flex-column">
               <RouterProvider router={router}/>

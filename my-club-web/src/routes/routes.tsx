@@ -6,6 +6,8 @@ import EventDetail from "../views/events/EventDetail";
 import Teams from "../views/team/Teams";
 import ClubDetail from "../views/club/ClubDetail";
 import {ClubForm} from "../views/club/ClubForm";
+import SectionForm from "../views/section/SectionForm";
+import Clubs from "../views/club/Clubs";
 
 export const routes: Route[] = [
   {
@@ -21,6 +23,10 @@ export const routes: Route[] = [
     element: <ClubForm/>
   },
   {
+    path: "/clubs/",
+    element: <Clubs/>
+  },
+  {
     path: "/teams",
     element: <Teams teams={[]}/>
   },
@@ -31,6 +37,10 @@ export const routes: Route[] = [
   {
     path: "/sections/:sectionId",
     element: <SectionDetail/>,
+  },
+  {
+    path: "/clubs/:clubId/sections/create/",
+    element: <SectionForm/>,
   },
   {
     path: "/events/:eventId",

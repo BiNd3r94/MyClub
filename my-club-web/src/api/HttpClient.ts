@@ -8,7 +8,9 @@ export class HTTPClient {
   }
 
   async get(url: string): Promise<any> {
-    return await this.baseCall(url, "GET")
+    return await this.baseCall(url, "GET").then((res=>{
+      return res.json()
+    }))
   }
 
   async create(url: string, body: string): Promise<any> {
@@ -30,12 +32,6 @@ export class HTTPClient {
           headers: this.getHeaders(this.keycloak.token),
           method: method,
           body: body
-        }).then(async (res: Response) => {
-          if (res.ok) {
-            return await res.json()
-          } else {
-            return createResponseError(res);
-          }
         }).catch((error) => {
           throw error;
         })

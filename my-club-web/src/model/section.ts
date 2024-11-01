@@ -1,13 +1,18 @@
 import {Team} from "./team";
 
-export interface Section {
-  id: number,
-  clubId: number,
+export class Section {
+  constructor() {
+    this.name = ""
+    this.description = ""
+  }
 
-  name: string,
-  description: string,
+  id: number
+  clubId: number
 
-  teams: Team[],
+  name: string
+  description: string
+
+  teams: Team[]
 }
 
 export const sectionsPath: string = "/api/section/";
