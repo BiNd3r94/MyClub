@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: MyClub
+  annotations:
+    github.com/project-slug: BiNd3r94/MyClub
+spec:
+  type: other
+  lifecycle: unknown
+  owner: users
