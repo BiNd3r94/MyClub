@@ -13,8 +13,7 @@ const Events = (props: SectionsProps) => {
 
   const getSections = () => {
     return props.events.map((event: Event) => {
-      return <EventOverview key={`event-${event.id}`} event={event}
-                              showSection={openEvent}/>
+      return <EventOverview key={`event-${event.id}`} event={event}/>
     })
   }
 

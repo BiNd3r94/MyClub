@@ -1,36 +1,36 @@
-import {useEffect, useState} from "react";
-import {Section} from "../../model/section";
-import {Team} from "../../model/team";
-import Teams from "../team/Teams";
+import {useContext, useEffect, useState} from "react";
+import {Section, sectionsPath} from "../../model/section";
+import TeamsOfSection from "../team/TeamsOfSection";
+import {useParams} from "react-router-dom";
+import {HTTPClient} from "../../api/HttpClient";
+import {KeycloakContext} from "../../auth/KeycloakProvider";
 
 type SectionDetailProps = {
-  sectionId: number
-  openOverview: () => void
+  sectionId?: number
+  openOverview?: () => void
 }
 const SectionDetail = (props: SectionDetailProps) => {
   const [section, setSection] = useState<Section>(null)
-  const [teams, setTeams] = useState<Team[]>([])
+  const params = useParams()
+  const keycloak = useContext(KeycloakContext)
 
   useEffect(() => {
-    fetch("http://localhost:8080/sections/" + props.sectionId).then((res) => {
-      res.json().then((section: Section) => {
-        setSection(section);
-      })
+
+    let httpClient = new HTTPClient(keycloak);
+    httpClient.get(sectionsPath + params.sectionId).then((section: Section) => {
+      setSection(section);
     })
-    fetch("http://localhost:8080/sections/" + props.sectionId + "/teams").then((res) => {
-      res.json().then((teams: Team[]) => {
-        setTeams(teams);
-      })
-    })
-  }, [props.sectionId]);
+  }, [params.sectionId]);
 
   return (
-      <div className="c-club-details">
+      <div className="c-club-details m-3">
         <h2>{section?.name && section.name}</h2>
         <p>{section?.description && section.description}</p>
 
-        <h3>Abteilungen</h3>
-        <Teams teams={teams}/>
+        <h3>Teams</h3>
+        {section &&
+            <TeamsOfSection section={section}/>
+        }
       </div>
   )
 }

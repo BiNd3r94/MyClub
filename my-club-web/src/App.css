@@ -1,3 +1,17 @@
-.my-club{
+.my-club {
   background-color: var(--surface-ground)
+}
+
+.main {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.p-button{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+a.p-button{
+  text-decoration: none;
 }

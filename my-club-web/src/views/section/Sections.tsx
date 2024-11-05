@@ -1,41 +1,34 @@
 import {Section} from "../../model/section";
 import SectionOverview from "./SectionOverview";
 import {useState} from "react";
-import SectionDetail from "./SectionDetail";
+import {useTranslation} from "react-i18next";
+import {useParams} from "react-router-dom";
+import {useRecoilValue} from "recoil";
+import {sectionsState} from "../../state/sectionState";
 
-type SectionsProps = {
-  sections: Section[]
-}
+type SectionsProps = {}
 const Sections = (props: SectionsProps) => {
-  const [showSections, setShowSections] = useState<boolean>(true)
-  const [showSection, setShowSection] = useState<boolean>(false)
-  const [sectionId, setSectionId] = useState<number>(null)
+  const {t} = useTranslation();
+  const sections = useRecoilValue(sectionsState)
+  const [showSections] = useState<boolean>(true);
+  const [showSection] = useState<boolean>(false);
+  const [sectionId] = useState<number>(null);
+  const params = useParams();
 
   const getSections = () => {
-    return props.sections.map((section: Section) => {
-      return <SectionOverview key={`section-${section.id}`} section={section}
-                              showSection={openSection}/>
+    return sections.map((section: Section) => {
+      return <SectionOverview key={`section-${section.id}`} section={section}/>
     })
-  }
-
-  const openSections = () => {
-    setShowSection(false);
-    setShowSections(true);
-    setSectionId(null);
-  }
-
-  const openSection = (sectionId: number) => {
-    setShowSections(false);
-    setShowSection(true);
-    setSectionId(sectionId);
   }
 
   return (
       <div className={"c-sections"}>
         {showSections && getSections()}
-        {showSection &&
-            <SectionDetail sectionId={sectionId} openOverview={openSections}/>
-        }
+
+        <div className="actions mt-3">
+          <a className="p-button"
+             href={"/clubs/" + params.clubId + "/sections/create/"}>{t("Add Section")}</a>
+        </div>
       </div>
   )
 }

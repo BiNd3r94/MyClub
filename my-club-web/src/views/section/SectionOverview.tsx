@@ -1,17 +1,16 @@
 import {Section} from "../../model/section";
 import {Card} from "primereact/card";
-import {Button} from "primereact/button";
+import {Link} from "react-router-dom";
 
 
 type SectionOverviewProps = {
-  section: Section
-  showSection: (sectionId: number) => void
+  section?: Section
 }
 const SectionOverview = (props: SectionOverviewProps) => {
   return (
       <Card className={"c-section m-3"} title={props.section.name}>
         <p>{props.section.description}</p>
-        <Button onClick={() => props.showSection(props.section.id)}>Öffnen</Button>
+        <Link className={"p-component p-button"} to={"/sections/" + props.section.id}>Öffnen</Link>
       </Card>
   )
 }

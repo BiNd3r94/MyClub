@@ -1,8 +1,7 @@
-import {Section} from "../../model/section";
 import {Card} from "primereact/card";
-import {Button} from "primereact/button";
 import {Event} from "../../model/event";
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 
 
 type EventDetailProps = {
@@ -10,13 +9,25 @@ type EventDetailProps = {
   openOverview: () => void
 }
 const EventDetail = (props: EventDetailProps) => {
-  const[event, setEvent] = useState<Event>(null)
+  const [clubEvent, setClubEvent] = useState<Event>();
+  const params = useParams();
+
+  useEffect(() => {
+    let eventId = params.eventId ? params.eventId : props.eventId
+    fetch("/api/event/" + eventId)
+    .then((res) => res.json())
+    .then((event: Event) => setClubEvent(event))
+  }, []);
 
   return (
-      <Card className={"c-event m-3"} title={event.name}>
-        <p>{event.description}</p>
-        <p>{event.date}</p>
-      </Card>
+      <React.Fragment>
+        {clubEvent &&
+            <Card className={"c-event m-3"} title={clubEvent.name}>
+              <p>{clubEvent.description}</p>
+              <p>{clubEvent.date}</p>
+            </Card>
+        }
+      </React.Fragment>
   )
 }
 

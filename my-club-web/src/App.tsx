@@ -1,33 +1,33 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import "primereact/resources/themes/vela-green/theme.css";
 import "primereact/resources/primereact.min.css";
 import './App.css';
-import Home from "./views/Home";
+import './i18n';
+import {routes} from "./routes/routes";
+import {KeycloakProvider} from "./auth/KeycloakProvider";
+import {RecoilRoot} from "recoil";
 
-const headers = { headers: { "Authorization": "Bearer " + localStorage.getItem("react-token") }};
+const headers = {headers: {"Authorization": "Basic YWRtaW46YWRtaW4="}};
+
 function App() {
-  const [userData, setUserData] = useState(null);
-
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Home/>,
-    },
-  ]);
-
-  useEffect(() => {
-    fetch("http://localhost:8080/user", headers).then((data)=>{
-      setUserData(data);
-    })
-  }, []);
+  const router = createBrowserRouter(routes);
 
   return (
-      <div className="my-club">
-        <h1 className={"text-center"}>My Club</h1>
-        <p>Willkommen {userData}</p>
-        <RouterProvider router={router}/>
-      </div>
+      <KeycloakProvider>
+        <RecoilRoot>
+          <div className="my-club">
+            <div className="container p-3">
+              <a href='/'>
+                <h1 className={"text-center"}>My Club</h1>
+              </a>
+            </div>
+            <div className="main flex justify-content-center flex-column">
+              <RouterProvider router={router}/>
+            </div>
+          </div>
+        </RecoilRoot>
+      </KeycloakProvider>
   );
 }
 

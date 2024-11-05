@@ -1,21 +1,33 @@
-import {Club} from "../../model/club";
+import {Club, clubsCreatePath} from "../../model/club";
 import {ClubOverview} from "./ClubOverview";
+import {useRecoilValue} from "recoil";
+import {clubsState} from "../../state/clubsState";
+import React from "react";
+import {LinkButton} from "../../components/LinkButton";
+import {useTranslation} from "react-i18next";
 
-type ClubsProps = {
-  myClubs: Club[]
-  showClub: (id: number) => void
-}
+type ClubsProps = {}
 const Clubs = (props: ClubsProps) => {
+  const {t} = useTranslation();
+  const clubs = useRecoilValue(clubsState);
   const getMyClubs = () => {
-    return props.myClubs ? props.myClubs.map((club: Club) => {
-      return <ClubOverview key={`club-${club.id}`} club={club} showClub={props.showClub}/>
+    console.log(clubs)
+    return clubs ? clubs.map((club: Club) => {
+      return <div className={"col-4 p-3"} key={`club-${club.id}`}>
+        <ClubOverview club={club}/>
+      </div>
     }) : [];
   }
 
   return (
-      <div>
-        {getMyClubs()}
-      </div>
+      <React.Fragment>
+        <div className={"grid"}>
+          {getMyClubs()}
+        </div>
+
+        <LinkButton link={clubsCreatePath}>{t("create-club")}</LinkButton>
+      </React.Fragment>
+
   )
 }
 export default Clubs;
