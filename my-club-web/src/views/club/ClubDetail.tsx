@@ -8,59 +8,59 @@ import Events from "../events/Events";
 import {useParams} from "react-router-dom";
 import {HTTPClient} from "../../api/HttpClient";
 import {KeycloakContext} from "../../auth/KeycloakProvider";
-import {useSetRecoilState} from "recoil";
-import {sectionsState} from "../../state/sectionState";
+import {sectionsState} from "../../util/state/sectionsState";
+import {useSetAtom} from "jotai/react/useSetAtom";
 
 type ClubDetailProps = {
-  clubId?: number
+    clubId?: number
 }
 const ClubDetail = (props: ClubDetailProps) => {
-  const [club, setClub] = useState<Club>(null)
-  const setSections = useSetRecoilState(sectionsState)
-  const [events, setEvents] = useState<Event[]>([])
-  const params = useParams()
-  const keycloak = useContext(KeycloakContext)
+    const [club, setClub] = useState<Club>(null)
+    const setSections = useSetAtom(sectionsState)
+    const [events, setEvents] = useState<Event[]>([])
+    const params = useParams()
+    const keycloak = useContext(KeycloakContext)
 
-  useEffect(() => {
-    initClub()
-  }, []);
+    useEffect(() => {
+        initClub()
+    }, []);
 
-  const initClub = () => {
-    let clubId = params.clubId ? params.clubId : props.clubId;
-    let httpClient = new HTTPClient(keycloak)
+    const initClub = () => {
+        let clubId = params.clubId ? params.clubId : props.clubId;
+        let httpClient = new HTTPClient(keycloak)
 
-    httpClient.get(clubsPath + clubId).then((club) => {
-      setClub(club);
-    })
+        httpClient.get(clubsPath + clubId).then((club) => {
+            setClub(club);
+        })
 
-    httpClient.get(clubsPath + clubId + "/section").then((sections: Section[]) => {
-      setSections(sections);
-    })
+        httpClient.get(clubsPath + clubId + "/section").then((sections: Section[]) => {
+            setSections(sections);
+        })
 
-    httpClient.get(clubsPath + clubId + "/event").then((res) => {
-      setEvents(events);
-    })
-  }
+        httpClient.get(clubsPath + clubId + "/event").then((res) => {
+            setEvents(events);
+        })
+    }
 
-  return (
-      <div className="c-club-details m-3">
-        <h2>{club?.name && club.name}</h2>
-        <p>{club?.description && club.description}</p>
+    return (
+        <div className="c-club-details m-3">
+            <h2>{club?.name && club.name}</h2>
+            <p>{club?.description && club.description}</p>
 
-        <TabView>
-          <TabPanel header={"Abteilungen"}>
-            <Sections/>
-          </TabPanel>
-          <TabPanel header={"Veranstaltungen"}>
-            <Events events={events}/>
-          </TabPanel>
-          <TabPanel header={"Mitglieder"}>
-            <span>TODO</span>
-          </TabPanel>
-        </TabView>
+            <TabView>
+                <TabPanel header={"Abteilungen"}>
+                    <Sections/>
+                </TabPanel>
+                <TabPanel header={"Veranstaltungen"}>
+                    <Events events={events}/>
+                </TabPanel>
+                <TabPanel header={"Mitglieder"}>
+                    <span>TODO</span>
+                </TabPanel>
+            </TabView>
 
-      </div>
-  )
+        </div>
+    )
 }
 
 export default ClubDetail;
