@@ -9,7 +9,7 @@ import {Message} from "primereact/message";
 import {useTranslation} from "react-i18next";
 import {clubsState} from "../../util/state/clubsState";
 import {LinkButton} from "../../components/base/LinkButton";
-import {useAtom} from "jotai/react/useAtom";
+import {useAtom} from "jotai";
 
 export const ClubForm = () => {
     const keycloak = useContext(KeycloakContext);

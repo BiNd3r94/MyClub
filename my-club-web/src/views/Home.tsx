@@ -5,7 +5,7 @@ import {clubsPath} from "../model/club";
 import {HTTPClient} from "../api/HttpClient";
 import {KeycloakContext} from "../auth/KeycloakProvider";
 import {clubsState} from "../util/state/clubsState";
-import {useSetAtom} from "jotai/react/useSetAtom";
+import {useSetAtom} from "jotai";
 
 const Home = () => {
     const setClubs = useSetAtom(clubsState);

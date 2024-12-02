@@ -4,7 +4,9 @@ import {useContext, useEffect} from "react";
 import {HTTPClient} from "../../api/HttpClient";
 import {KeycloakContext} from "../../auth/KeycloakProvider";
 import {teamsState} from "../../util/state/teamsState";
-import {useAtom} from "jotai/react/useAtom";
+import {useAtom} from "jotai";
+import {Link, useParams} from "react-router-dom";
+import {useTranslation} from "react-i18next";
 
 type TeamOverviewProps = {
     teams?: Team[]
@@ -13,6 +15,8 @@ type TeamOverviewProps = {
 function Teams(props: TeamOverviewProps) {
     const [teams, setTeams] = useAtom(teamsState);
     const keycloak = useContext(KeycloakContext);
+    const params = useParams();
+    const {t} = useTranslation();
 
     useEffect(() => {
         let httpClient = new HTTPClient(keycloak);
@@ -25,7 +29,7 @@ function Teams(props: TeamOverviewProps) {
                 return (
                     <Card className={"c-team col-3 m-3"} title={team.name} key={"team-card-" + index}>
                         <p>{team.description}</p>
-                        <a href={"/teams/" + team.id} className={"p-button"}>Öffnen</a>
+                        <Link to={"/sections/" + params.sectionId + "/teams/" + team.id} className={"p-button"}>{t("open")}</Link>
                     </Card>
                 )
             })}

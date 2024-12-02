@@ -9,7 +9,7 @@ import {useParams} from "react-router-dom";
 import {HTTPClient} from "../../api/HttpClient";
 import {Section} from "../../model/section";
 import {sectionsState} from "../../util/state/sectionsState";
-import {useAtom} from "jotai/react/useAtom";
+import {useAtom} from "jotai";
 
 const SectionForm = () => {
     const params = useParams();
@@ -21,7 +21,7 @@ const SectionForm = () => {
 
     const createSection = () => {
         let httpClient = new HTTPClient(keycloak);
-        let tmpSection = {...section, clubId: params.clubId}
+        let tmpSection = {...section, club: {id:params.clubId}}
         httpClient.create("/api/section/", JSON.stringify(tmpSection)).then((res) => {
             if (res.ok) {
                 setStatus(successStatus)

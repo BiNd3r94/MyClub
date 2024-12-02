@@ -8,6 +8,7 @@ import {ClubForm} from "../views/club/ClubForm";
 import SectionForm from "../views/section/SectionForm";
 import Clubs from "../views/club/Clubs";
 import {TeamsView} from "../views/team/TeamsView";
+import TeamForm from "../views/team/TeamForm";
 
 export const routes: Route[] = [
     {
@@ -37,6 +38,10 @@ export const routes: Route[] = [
     {
         path: "/sections/:sectionId",
         element: <SectionDetail/>,
+    },
+    {
+        path: "/sections/:sectionId/teams/create",
+        element: <TeamForm/>,
     },
     {
         path: "/clubs/:clubId/sections/create/",

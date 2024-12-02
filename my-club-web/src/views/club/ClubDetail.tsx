@@ -9,7 +9,7 @@ import {useParams} from "react-router-dom";
 import {HTTPClient} from "../../api/HttpClient";
 import {KeycloakContext} from "../../auth/KeycloakProvider";
 import {sectionsState} from "../../util/state/sectionsState";
-import {useSetAtom} from "jotai/react/useSetAtom";
+import {useSetAtom} from "jotai";
 
 type ClubDetailProps = {
     clubId?: number

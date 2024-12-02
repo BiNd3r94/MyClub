@@ -2,11 +2,8 @@ package com.my.club.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
@@ -17,6 +14,7 @@ public class Section extends PanacheEntity {
     public String description;
 
     @ManyToOne
+    @JoinColumn(name = "club_id")
     public Club club;
 
     @OneToMany(targetEntity = Team.class, cascade = CascadeType.ALL, orphanRemoval = true)

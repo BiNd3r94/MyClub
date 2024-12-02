@@ -1,7 +1,7 @@
 import React, {createContext, PropsWithChildren, useEffect, useState} from "react";
 import Keycloak from "keycloak-js";
-import keycloakState from "../util/state/keycloakState";
-import {useAtom} from "jotai/react/useAtom";
+import {keycloakState} from "../util/state/keycloakState";
+import {useAtom} from "jotai";
 
 // Create a context for Keycloak
 const KeycloakContext = createContext(null);

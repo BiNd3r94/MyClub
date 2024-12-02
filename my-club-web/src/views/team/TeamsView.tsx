@@ -1,6 +1,6 @@
 import {teamsState} from "../../util/state/teamsState";
 import Teams from "../../components/team/Teams";
-import {useSetAtom} from "jotai/react/useSetAtom";
+import {useSetAtom} from "jotai";
 
 export const TeamsView = () => {
     const setTeams = useSetAtom(teamsState);

@@ -4,7 +4,7 @@ import {LinkButton} from "../../components/base/LinkButton";
 import {useTranslation} from "react-i18next";
 import {clubsState} from "../../util/state/clubsState";
 import React from "react";
-import {useAtomValue} from "jotai/react/useAtomValue";
+import {useAtomValue} from "jotai";
 
 type ClubsProps = {}
 const Clubs = (props: ClubsProps) => {

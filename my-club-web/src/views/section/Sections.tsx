@@ -2,17 +2,17 @@ import {Section} from "../../model/section";
 import SectionOverview from "./SectionOverview";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
-import {useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import {sectionsState} from "../../util/state/sectionsState";
-import {useAtomValue} from "jotai/react/useAtomValue";
+import {useAtomValue} from "jotai";
+import {currentClubState} from "../../util/state/clubsState";
 
 type SectionsProps = {}
 const Sections = (props: SectionsProps) => {
     const {t} = useTranslation();
+    const currentClub = useAtomValue(currentClubState);
     const sections = useAtomValue(sectionsState)
     const [showSections] = useState<boolean>(true);
-    const [showSection] = useState<boolean>(false);
-    const [sectionId] = useState<number>(null);
     const params = useParams();
 
     const getSections = () => {
@@ -26,8 +26,8 @@ const Sections = (props: SectionsProps) => {
             {showSections && getSections()}
 
             <div className="actions mt-3">
-                <a className="p-button"
-                   href={"/clubs/" + params.clubId + "/sections/create/"}>{t("Add Section")}</a>
+                <Link className="p-button"
+                      to={"/clubs/" + params.clubId + "/sections/create/"}>{t("create-section")}</Link>
             </div>
         </div>
     )
